@@ -1,0 +1,444 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #cdedfc;
+   
+    background-repeat: repeat;
+   background-size: cover;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Navigation */
+nav {
+    background-color: #696868;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+   
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: large;
+    padding: 15px 20px;
+}
+
+
+.nav-links a:hover {
+    padding: 15px 20px; /* Expands size on hover */
+    border-radius: 5px;
+    background-color: #cdedfc;
+    color: black;
+}
+
+/* Auth forms */
+.auth-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Container for the product cards */
+.products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  /* Individual product card styling */
+  .product-card {
+    width: calc(33.33% - 20px); /* Three cards per row with space between them */
+    background-color: #f9f9f996;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Image styling inside the card */
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  /* Product title styling */
+  .product-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Product price styling */
+  .product-card .price {
+    font-size: 16px;
+    color: #28a745;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  /* Button styling */
+  .product-card button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .product-card button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive design for mobile */
+  @media screen and (max-width: 768px) {
+    .product-card {
+      width: calc(50% - 20px); /* Two cards per row on smaller screens */
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .product-card {
+      width: 100%; /* One card per row on very small screens */
+    }
+  }
+  
+    
+
+
+/* Cart styles */
+.cart-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-quantity button {
+    padding: 5px 10px;
+}
+
+.cart-summary {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.checkout-button {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.checkout-button:hover {
+    background-color: #218838;
+}
+
+/* Orders styles */
+.order-card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-date {
+    color: #666;
+}
+
+.order-status {
+    color: #28a745;
+}
+
+.cancel-button {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.cancel-button:hover {
+    background-color: #c82333;
+}
+
+/* Alert messages */
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.chatbot-container.collapsed {
+    height: 60px;
+}
+
+.chatbot-header {
+    background-color: #005eff;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.chatbot-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.chatbot-toggle {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.bot-message {
+    background-color: #006aff;
+    color: #ffffff;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.bot-message a {
+    color: #4a5568;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.user-message {
+    background-color: #59595b;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.chatbot-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chatbot-input button {
+    background-color: #005eff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chatbot-input button:hover {
+    background-color: #2d3748;
+}
+
+.chatbot-input button:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+}
+
+.chatbot-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+.chatbot-toggle-button:hover {
+    background-color: #2d3748;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Quick reply buttons */
+.quick-reply-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    align-self: flex-start;
+}
+
+.quick-reply-button {
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.quick-reply-button:hover {
+    background-color: #2d3748;
+}
+/* Logo Styling */
+.logo {
+    height: 50px; /* Adjust as needed */
+    margin-right: 10px;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+/* Navigation Bar Styling */
+

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="confirmation-container">
+    <h2>Order Confirmed!</h2>
+    <p>Your order #{{ order_id }} has been placed successfully.</p>
+    <p><strong>Shipping to:</strong> {{ shipping_address }}</p>
+    <p><strong>Status:</strong> {{ status }}</p>
+    <p><strong>Date:</strong> {{ order_date }}</p>
+    <p><strong>Items:</strong> {{ items }}</p>
+    <p><strong>Total:</strong> Rs. {{ "%.2f"|format(total) }}</p>
+    <a href="{{ url_for('home') }}">Continue Shopping</a>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="orders-container">
+    <h2>Order History</h2>
+    {% if orders %}
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <h3>Order #{{ order[0] }}</h3>
+                <p class="order-date">{{ order[3] }}</p>
+            </div>
+            <div class="order-details">
+                <p class="order-items">{{ order[4] }}</p>
+                <p class="order-total">Total: Rs.{{ "%.2f"|format(order[1]) }}</p>
+                <p class="order-status">Status: {{ order[2] }}</p>
+            </div>
+            {% if order[2] not in ['delivered', 'cancelled'] %}
+            <a href="{{ url_for('cancel_order', order_id=order[0]) }}" class="cancel-button">
+                Cancel Order
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No orders found</p>
+    {% endif %}
+</div>
+{% endblock %}

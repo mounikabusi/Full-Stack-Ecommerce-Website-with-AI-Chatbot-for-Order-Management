@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="cart-container">
+    <h2>Shopping Cart</h2>
+    {% if cart_items %}
+        <div class="cart-items">
+            {% for item in cart_items %}
+            <div class="cart-item">
+                <div class="item-details">
+                    <h3>{{ item.name }}</h3>
+                    <p>Rs.{{ "%.2f"|format(item.price) }}</p>
+                </div>
+                <div class="item-quantity">
+                    <form method="POST" action="{{ url_for('update_cart') }}" style="display: inline;">
+                        <input type="hidden" name="product_id" value="{{ item.id }}">
+                        <input type="hidden" name="action" value="decrease">
+                        <button type="submit">-</button>
+                    </form>
+                    <span>{{ item.quantity }}</span>
+                    <form method="POST" action="{{ url_for('update_cart') }}" style="display: inline;">
+                        <input type="hidden" name="product_id" value="{{ item.id }}">
+                        <input type="hidden" name="action" value="increase">
+                        <button type="submit">+</button>
+                    </form>
+                </div>
+                <div class="item-subtotal">
+                    Rs.{{ "%.2f"|format(item.subtotal) }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="cart-summary">
+            <h3>Total: Rs.{{ "%.2f"|format(total) }}</h3>
+            <a href="{{ url_for('checkout') }}" class="checkout-button">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <p>Your cart is empty</p>
+        <a href="{{ url_for('home') }}" class="continue-shopping">Continue Shopping</a>
+    {% endif %}
+</div>
+{% endblock %}

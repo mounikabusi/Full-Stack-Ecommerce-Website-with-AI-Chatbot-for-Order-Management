@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<button id="chatbot-toggle-button" class="chatbot-toggle-button">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+</button>
+
+<!-- Chatbot Container -->
+<div id="chatbot-container" class="chatbot-container">
+    <div id="chatbot-header" class="chatbot-header">
+        <h3>Shopping Assistant</h3>
+        <div>
+            <button class="chatbot-toggle" id="chatbot-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+            </button>
+            <button class="chatbot-toggle" id="chatbot-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div id="chatbot-messages" class="chatbot-messages"></div>
+    <div class="chatbot-input">
+        <input type="text" id="chatbot-input" placeholder="Type your message...">
+        <button id="chatbot-send-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </div>
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+
+
+
+<!-- Load JavaScript files locally -->
+<script src="static/js/script.js"></script>
+
+
+    <main class="container">
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product[4] }}" alt="{{ product[1] }}">
+                <h3>{{ product[1] }}</h3>
+                <p>{{ product[2] }}</p>
+                <p class="price">Rs.{{ product[3] }}</p>
+
+
+                <button onclick="addToCart('{{ product[0] }}', '{{ product[1] }}', '{{ product[2] }}', '{{ product[4] }}')">
+                    Add to Cart
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+
+      
+    
+    </main>
+    
+{% endblock %}
+
+
+
+
+</body>
+</html>

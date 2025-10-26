@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-2xl mx-auto p-4">
+        <div class="bg-white rounded-lg shadow-lg">
+            <div class="p-4 border-b">
+                <h2 class="text-lg font-semibold">Customer Support</h2>
+            </div>
+            
+            <div id="chat-messages" class="h-96 overflow-y-auto p-4 space-y-4">
+                <!-- Messages will be added here -->
+            </div>
+            
+            <div class="p-4 border-t">
+                <form id="chat-form" class="flex space-x-2">
+                    <input type="text" 
+                           id="message-input"
+                           class="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:border-blue-500"
+                           placeholder="Type your message...">
+                    <button type="submit"
+                            class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const chatForm = document.getElementById('chat-form');
+        const messageInput = document.getElementById('message-input');
+
+        // Add initial bot message
+        addMessage('Hello! How can I help you today? I can assist with:', 'bot');
+        addOptions(['Place Order', 'Check Order Status', 'Cancel Order']);
+
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const message = messageInput.value.trim();
+            if (!message) return;
+            
+            // Add user message
+            addMessage(message, 'user');
+            messageInput.value = '';
+            
+            // Send message to server
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message })
+                });
+                
+                const data = await response.json();
+                
+                // Add bot response
+                addMessage(data.response, 'bot');
+                
+                // Add options if available
+                if (data.options) {
+                    addOptions(data.options);
+                }
+                
+                // Show products if available
+                if (data.products) {
+                    addProducts(data.products);
+                }
+                
+                // Show orders if available
+                if (data.orders) {
+                    addOrders(data.orders);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Sorry, there was an error processing your request.', 'bot');
+            }
+        });
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${sender === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `max-w-xs p-3 rounded-lg ${
+                sender === 'user' 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-gray-200 text-gray-800'
+            }`;
+            messageBubble.textContent = text;
+            
+            messageDiv.appendChild(messageBubble);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addOptions(options) {
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'flex flex-wrap gap-2 mt-2';
+            
+            options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300';
+                button.textContent = option;
+                button.onclick = () => {
+                    messageInput.value = option;
+                    chatForm.dispatchEvent(new Event('submit'));
+                };
+                optionsDiv.appendChild(button);
+            });
+            
+            chatMessages.appendChild(optionsDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addProducts(products) {
+            const productsDiv = document.createElement('div');
+            productsDiv.className = 'space-y-2 mt-2';
+            
+            products.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'bg-gray-100 p-3 rounded-lg';
+                productDiv.innerHTML = `
+                    <div class="font-semibold">${product.name}</div>
+                    <div class="text-gray-600">Rs.${product.price.toFixed(2)}</div>
+                    <button onclick="addToCart(${product.id})" 
+                            class="mt-2 bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                        Add to Cart
+                    </button>
+                `;
+                productsDiv.appendChild(productDiv);
+            });
+            
+            chatMessages.appendChild(productsDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addOrders(orders) {
+            const ordersDiv = document.createElement('div');
+            ordersDiv.className = 'space-y-2 mt-2';
+            
+            orders.forEach(order => {
+                const orderDiv = document.createElement('div');
+                orderDiv.className = 'bg-gray-100 p-3 rounded-lg';
+                orderDiv.innerHTML = `
+                    <div class="font-semibold">Order #${order.id}</div>
+                    <div class="text-gray-600">
+                        Total: Rs.${order.total.toFixed(2)}<br>
+                        Status: ${order.status}<br>
+                        Date: ${new Date(order.date).toLocaleString()}
+                    </div>
+                `;
+                ordersDiv.appendChild(orderDiv);
+            });
+            
+            chatMessages.appendChild(ordersDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function addToCart(productId) {
+            try {
+                const response = await fetch(`/add_to_cart/${productId}`);
+                if (response.ok) {
+                    addMessage('Product added to cart successfully!', 'bot');
+                } else {
+                    addMessage('Sorry, there was an error adding the product to cart.', 'bot');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage('Sorry, there was an error adding the product to cart.', 'bot');
+            }
+        }
+    </script>
+</body>
+</html>
